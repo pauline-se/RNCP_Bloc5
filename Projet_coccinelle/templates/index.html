@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- <header> -->
+  <title>Projet Coccinelle</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+
+
+<body>
+  <div class="container">
+    <h1 class="jumbotron bg-primary">Projet Coccinelle</h1>
+    <form class="form" action="/link" method="post" enctype="multipart/form-data" name="form_name" id="form_id">
+      <div class="form-group">
+        <label class="d-flex flex-row" for="pwd">Votre image:</label>
+        <input type="file" class="form-control form-control-sm rounded" placeholder="Hours Studied" name="my_image"
+          id="pwd">
+
+      </div>
+      <div class="form-group">
+        <label class="d-flex flex-row">
+          Utilisez un lien vers une image
+        </label>
+        <input class="form-control form-control-sm rounded" name="link" placeholder="Paste car link" type="text"
+          id="car_link">
+      </div>
+      <input type="submit" id="btn_upload" class="btn rounded btn-primary" name="action" value="Upload Image" />
+      <input type="submit" id="btn_upload" class="btn rounded btn-secondary" name="action" value="Upload Link" />
+    </form>
+
+    {% if prediction %}
+    <h2> L'animal que vous avez soumis est : <i> {{prediction}} </i></h2>
+    <img src="{{url_for('static',filename = a)}}" height="400px" width="400px">
+
+
+    {% endif %}
+
+  </div>
+
+</body>
+
+</html>
