@@ -1,0 +1,255 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Cocci Nette - Prediction</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<!-- Include Custom CSS -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}">
+		<!-- Include Font Awesome Icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/fontawesome-all.min.css') }}">
+
+		<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+		<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    	<!-- <script src="{{ url_for('static', filename='assets/js/script.js') }}"></script> -->
+		<style>
+			.custom-list {
+				list-style-type: none;
+				padding: 0;
+			}
+
+			.custom-list li::before {
+				content: "{{ get_emoji(predicted_class_index) }}";
+				margin-right: 5px;
+			}
+		</style>
+	</head>
+
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+			<div id="header">
+
+				<!-- Logo -->
+				<h1><a href="index.html" id="logo" style="font-size: 44px;">Cocci Nette<br/></a><em>Outil d'identification visuelle d'insectes</em></h1>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="{{ url_for('index') }}">🦋Accueil</a></li>
+							<li class="current"><a href="{{ url_for('predictions') }}">🐝Prédictions</a></li>
+						</ul>
+					</nav>
+
+			</div>
+
+			<!-- Main -->
+				<section class="wrapper style1" style="background-image: url('images/3.jpg'); opacity: 0.7; background-size: cover; text-align: center; position: relative;">
+					<div class="container">
+
+						<!-- Highlights -->
+						<div class="row gtr-200" style="color: black; font-weight: bold;">
+							<section class="col-6 col-12-narrower">
+								<div class="box highlight">
+									<i class="icon solid major fa-image"></i>
+									<h3>IMAGE</h3>
+									<p>Choisissez une image :</p>
+									<form class="form" action="/linkimg" method="POST" enctype="multipart/form-data" name="form_name" id="form_id">
+										<div class="form-group">
+											<input type="file" class="form-control form-control-sm rounded" placeholder="Hours Studied" name="my_image" /><br/><br/><br/>
+											<input type="submit" id="btn_upload" class="btn rounded btn-primary" name="action" value="Envoyer image" />
+										</div>
+									</form>
+								</div>
+							</section>
+							<section class="col-6 col-12-narrower">
+								<div class="box highlight">
+									<i class="icon solid major fa-globe"></i>
+									<h3>URL</h3>
+									<p>Coller le lien vers l'image ci-dessous :</p>
+									<form class="form" action="/linkurl" method="POST" enctype="multipart/form-data" name="form_name" id="form_id">
+										<div class="form-group">
+											<input class="form-control form-control-sm rounded" name="linkurl" placeholder="Paste image link" type="text"/><br/>
+											<input type="submit" id="btn_upload" class="btn rounded btn-primary" name="action" value="Envoyer lien" />
+										</div>
+									</form>
+								</div>
+							</section>
+						</div>
+					</div>
+				</section>
+
+
+				<section class="wrapper style2" id="section_prediction" style="background-color:rgba(255, 252, 252, 0.836)">
+					<div class="container">
+						<div class="major">
+							{% if error %}
+								<h2><span style="color: red;"><i class="fas fa-exclamation-triangle"></i> {{error}} <i class="fas fa-exclamation-triangle"></i></span></h2>
+							{% endif %}
+							{% if prediction %}
+								<div>
+									<!-- Prediction Result -->
+									{% if prediction == "low_confidence" %}
+										<div class="row gtr-200" style="align-items: center;">
+											<div class="col-6 col-12-narrower" align="center" >
+												<img src="{{url_for('static', filename='user_content/' + a)}}" height="300px" width="auto"/>
+											</div>
+											<div class="col-6 col-12-narrower" align="center" >
+												<h6 style="padding:20px;">Nous n'avons malheureusement pas pu reconnaître votre image </h6>
+												<span><img src="https://media.tenor.com/O2MrNW0irFAAAAAC/cat-nah.gif" alt="" /></span>
+											</div>
+										</div>
+										<!-- <h3>(Affichage pour Test)<br/>Certitude de : <b><i>{{confidence}}</i></b></h3> -->
+
+										{% else %}
+										<div>
+											<div class="row gtr-200">
+												<div class="col-6 col-12-narrower" align="center" >
+													<img src="{{url_for('static', filename='user_content/' + a)}}" height="300px" width="auto"/>
+												</div>
+												<div class="col-6 col-12-narrower" align="center" >
+													<h2 style="color: rgb(0, 0, 0); font-weight: bold;"><span>Prédiction :</span><br/>Ceci est <b><i><u>{{prediction}} !</u></i></b></h2>
+													<p>Confiance dans la prédiction :</p>
+													<div class="jauge"  align="center">
+														<div class="niveau" id="niveau" style="background-color: {{color}}; width: {{width}};">{{affichage_niveau}}</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									{% endif %}
+								</div>
+								
+								
+								<!-- <h3>Certitude de : <b><i>{{confidence}}</i></b></h3> -->
+
+										
+								{% if prediction is defined and prediction != "low_confidence" %}
+								<div style="margin: 40px; padding: 10px; background-color: rgb(241, 243, 241);">
+									<h4> &#x1F4A1; <span style="font-style: italic; text-decoration: underline;">Le saviez-vous ?</span></h4>
+									<ul class="custom-list">
+										{% for anecdote in get_random_anecdotes(predicted_class_index) %}
+										<li><b>{{ anecdote }}</b></li>
+										{% endfor %}
+									</ul>
+								</div>
+								{% endif %}
+								
+							{% endif %}
+
+
+
+							</div>
+						
+					</div>
+				</section>
+
+				<section class="wrapper style1">
+						<!-- Content -->
+						<div id="content">
+
+							<!-- Highlights -->
+							<div class="row gtr-200" style="color: black; font-weight: bold;">
+								<section class="col-4 col-12-narrower">
+									<div class="box highlight">
+
+
+								</section>
+								<section class="col-4 col-12-narrower">
+									<div class="box highlight">
+
+									</div>
+								</section>
+							</div>
+
+							<article>
+								<h3></h3>
+								<p></p>
+
+								<h3></h3>
+								<p></p>
+							</article>
+						</div>
+
+				</section>
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+						<div class="row">
+							<section class="col-3 col-6-narrower col-12-mobilep">
+								<h3>GitHub</h3>
+								<ul class="links">
+									<li><a href="#" class="icon brands fa-github" target="_blank"> Jean-Benoît CLAISSE</a></li>
+									<li><a href="https://github.com/pauline-se" class="icon brands fa-github" target="_blank"> Pauline SIRE</a></li>
+									<li><a href="https://github.com/kwinetine" class="icon brands fa-github" target="_blank"> Quentin VAN DER HAEGEN</a></li>
+								</ul>
+							</section>
+							<section class="col-3 col-6-narrower col-12-mobilep">
+								<h3>LinkedIn</h3>
+								<ul class="links">
+									<li><a href="#https://www.linkedin.com/in/jean-beno%C3%AEt-claisse-3442511a1/" class="icon brands fa-linkedin-in" target="_blank"> Jean-Benoit CLAISSE</a></li>
+									<li><a href="https://www.linkedin.com/in/pauline-sire/" class="icon brands fa-linkedin-in" target="_blank"> Pauline SIRE</a></li>
+									<li><a href="https://www.linkedin.com/in/q-vdh/" class="icon brands fa-linkedin-in" target="_blank"> Quentin VAN DER HAEGEN</a></li>
+								</ul>
+							</section>
+							<section class="col-6 col-12-narrower">
+								<h3>Restons en contact !</h3>
+								<form>
+									<div class="row gtr-50">
+										<div class="col-6 col-12-mobilep">
+											<input type="text" name="name" id="name" placeholder="NOM" />
+										</div>
+										<div class="col-6 col-12-mobilep">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="col-12">
+											<textarea name="message" id="message" placeholder="Message" rows="5"></textarea>
+										</div>
+										<div class="col-12">
+											<ul class="actions">
+												<li><input type="submit" class="button alt" value="Nous écrire" /></li>
+											</ul>
+										</div>
+									</div>
+								</form>
+							</section>
+						</div>
+					</div>
+					<!-- Copyright -->
+					<div class="copyright">
+						<ul class="menu">
+							<li>&copy; JBPQ. All rights reserved</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+
+			{% if section_id %}
+			<script>
+				window.addEventListener("DOMContentLoaded", (event) => {
+					const section = document.getElementById("{{ section_id }}");
+					if (section) {
+						section.scrollIntoView();
+					}
+				});
+			</script>
+			{% endif %}
+
+	</body>
+</html>

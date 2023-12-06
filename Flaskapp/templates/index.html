@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Cocci Nette - Accueil</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+		<!-- Include Custom CSS -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}">
+		<!-- Include Font Awesome Icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/fontawesome-all.min.css') }}">
+
+		<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+	</head>
+
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+			<div id="header">
+
+				<!-- Logo -->
+				<h1><a href="index.html" id="logo" style="font-size: 44px;">Cocci Nette<br/></a><em>Outil d'identification visuelle d'insectes</em></h1>
+
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li class="current"><a href="{{ url_for('index') }}">🦋Accueil</a></li>
+							<li><a href="{{ url_for('predictions') }}">🐝Prédictions</a></li>
+						</ul>
+					</nav>
+
+			</div>
+
+			<!-- Banner -->
+				<section id="banner">
+					<header>
+						<h2>Découvrez notre outil d'identification d'espèces</h2>
+						<a href="{{ url_for('predictions') }}" class="button">Testez dès maintenant</a>
+					</header>
+				</section>
+
+				<!-- Highlights -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div class="row gtr-200">
+							<section class="col-6 col-12-narrower">
+								<div class="box highlight">
+									<i class="icon solid major fa-paper-plane"></i>
+									<h3>Contribuer</h3>
+									<p>Vous souhaitez contribuer à<br/>l'étude de la biodiversité ?<br/><br/><a href="https://www.inaturalist.org" class="button">iNaturalist</a></p>
+								</div>
+							</section>
+							<section class="col-6 col-12-narrower">
+								<div class="box highlight">
+									<i class="icon solid major fa-wrench"></i>
+									<h3>Développement</h3>
+									<p>Un bug, une remarque ?<br/>Contactez-nous !<br/><br/><a href="#" class="button">Nous écrire</a></p>
+								</div>
+							</section>
+						</div>
+					</div>
+				</section>
+
+			<!-- Posts -->
+				<section class="wrapper style1">
+					<div class="container">
+					</div>
+				</section>
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+						<div class="row">
+							<section class="col-6 col-6-narrower col-12-mobilep">
+								<h3>GitHub</h3>
+								<ul class="links">
+									<li><a href="#" class="icon brands fa-github" target="_blank"> Jean-Benoît CLAISSE</a></li>
+									<li><a href="https://github.com/pauline-se" class="icon brands fa-github" target="_blank"> Pauline SIRE</a></li>
+									<li><a href="https://github.com/kwinetine" class="icon brands fa-github" target="_blank"> Quentin VAN DER HAEGEN</a></li>
+								</ul>
+							</section>
+							<section class="col-6 col-6-narrower col-12-mobilep">
+								<h3>LinkedIn</h3>
+								<ul class="links">
+									<li><a href="https://www.linkedin.com/in/jean-beno%C3%AEt-claisse-3442511a1/" class="icon brands fa-linkedin-in" target="_blank"> Jean-Benoit CLAISSE</a></li>
+									<li><a href="https://www.linkedin.com/in/pauline-sire/" class="icon brands fa-linkedin-in" target="_blank"> Pauline SIRE</a></li>
+									<li><a href="https://www.linkedin.com/in/q-vdh/" class="icon brands fa-linkedin-in" target="_blank"> Quentin VAN DER HAEGEN</a></li>
+								</ul>
+							</section>
+							<section class="col-6 col-12-narrower">
+								<h3>Restons en contact !</h3>
+								<form>
+									<div class="row gtr-50">
+										<div class="col-6 col-12-mobilep">
+											<input type="text" name="name" id="name" placeholder="NOM" />
+										</div>
+										<div class="col-6 col-12-mobilep">
+											<input type="email" name="email" id="email" placeholder="Email" />
+										</div>
+										<div class="col-12">
+											<textarea name="message" id="message" placeholder="Message" rows="5"></textarea>
+										</div>
+										<div class="col-12">
+											<ul class="actions">
+												<li><input type="submit" class="button alt" value="Nous écrire" /></li>
+											</ul>
+										</div>
+									</div>
+								</form>
+							</section>
+						</div>
+					</div>
+
+					<!-- Icons
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands fa-google-plus-g"><span class="label">Google+</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+						</ul> -->
+
+					<!-- Copyright -->
+					<!-- Copyright -->
+					<div class="copyright">
+						<ul class="menu">
+							<li>&copy; JBPQ. All rights reserved</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</div>
+
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,7 @@
+cd C:\Users\Pauline\Documents\Formation\RNCP\Bloc5\site_web\
+
+REM docker build -t coccinelle .
+
+docker run -p 2024:2024 coccinelle
+
+docker run -p 2024:2024 -v .\Flaskapp:/app coccinelle
