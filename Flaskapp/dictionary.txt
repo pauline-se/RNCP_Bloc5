@@ -1,0 +1,13 @@
+{0:"une abeille",
+1:"un papillon",
+2:"une coccinelle"
+}
+
+
+
+
+
+
+
+
+
